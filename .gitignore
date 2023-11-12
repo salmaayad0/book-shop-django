@@ -1,3 +1,7 @@
 shop/__pycache__
 store/__pycache__
 /media
+/.coverage
+/report.txt
+/htmlcov
+
