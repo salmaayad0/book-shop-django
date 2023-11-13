@@ -5,7 +5,11 @@
 """
 
 from django.urls import path
+from .views import *
+
+app_name = 'store'
 
 urlpatterns = [
-    # path('', ),
+    path('', allProducts, name='allProducts'),
+    path('product/<int:id>', getProduct, name='getProduct'),
 ]
