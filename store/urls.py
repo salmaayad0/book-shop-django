@@ -10,6 +10,6 @@ from .views import *
 app_name = 'store'
 
 urlpatterns = [
-    path('', allProducts, name='allProducts'),
-    path('product/<int:id>', getProduct, name='getProduct'),
+    path('', allBooks, name='allBooks'),
+    path('book/<slug:slug>', getBook, name='getBook'),
 ]

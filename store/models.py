@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import get_list_or_404
 from django.urls import reverse
-from datetime import datetime
 
 # Create your models here.
 class Category(models.Model):
@@ -52,9 +51,8 @@ class Product(models.Model):
         return get_list_or_404(cls)
     
     # return one product url by id
-    @property
     def getOneProduct_url(self):
-        return reverse('product', args=[self.id])
+        return reverse('store:getBook', args=[self.slug])
     
     # return image url
     @property

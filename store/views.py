@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from .models import *
 
 # Create your views here.
@@ -11,9 +11,13 @@ def allCategories(request):
     }
 
 # Products function
-def allProducts(request):
-    products = Product.getAllProducts()
-    return render(request, 'store/index.html', {'products': products})
+def allBooks(request):
+    books = Product.getAllProducts()
+    return render(request, 'store/index.html', {'books': books})
 
-def getProduct(request):
-    return Product.getOneProduct_url
+
+def getBook(request, slug):
+    book = get_object_or_404(Product, slug=slug, in_stock=True)
+    return render(request, 'store/detail.html', {'book':book})
+    
+
