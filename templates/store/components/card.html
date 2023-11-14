@@ -1,0 +1,24 @@
+{% for book in books %}
+<div class="col">
+  <div class="card shadow-sm">
+    <img class="img-fluid" alt="{{book.title}}" src="{{book.getImage_url}}" />
+    <div class="card-body">
+      <h5 class="text-center">
+        <a class="text-dark text-decoration-none" href="{{book.getOneProduct_url}}">{{book.title}}</a>
+      </h5>
+      <p class="card-text">{{book.description}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <button type="button" class="btn btn-sm btn-outline-secondary">
+            {{book.price}}
+          </button>
+          <button type="button" class="btn btn-sm btn-outline-secondary">
+            {{book.category}}
+          </button>
+        </div>
+        <small class="text-body-secondary">{{book.created_time}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
