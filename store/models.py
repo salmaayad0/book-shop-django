@@ -13,13 +13,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-    # def get_absolute_url(self):
-    #     return reverse("_detail", kwargs={"pk": self.pk})
     
     @classmethod
     def getAllCategories(cls):
         return cls.objects.all()
+    
+    def getCategory_url(self):
+        return reverse("store:listCategories", args=[self.slug])
 
 
 
