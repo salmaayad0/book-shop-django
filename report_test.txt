@@ -1,0 +1,21 @@
+Name                                                                        Stmts   Miss  Cover
+-----------------------------------------------------------------------------------------------
+manage.py                                                                      12      2    83%
+shop/__init__.py                                                                0      0   100%
+shop/settings.py                                                               21      0   100%
+shop/urls.py                                                                    7      1    86%
+store/__init__.py                                                               0      0   100%
+store/admin.py                                                                 12      0   100%
+store/apps.py                                                                   4      0   100%
+store/migrations/0001_initial.py                                                7      0   100%
+store/migrations/0002_alter_product_image.py                                    4      0   100%
+store/migrations/0003_alter_category_options_alter_product_description.py       4      0   100%
+store/migrations/__init__.py                                                    0      0   100%
+store/models.py                                                                41      0   100%
+store/tests/__init__.py                                                         0      0   100%
+store/tests/test_models.py                                                     19      0   100%
+store/tests/test_views.py                                                      34      0   100%
+store/urls.py                                                                   4      0   100%
+store/views.py                                                                 15      0   100%
+-----------------------------------------------------------------------------------------------
+TOTAL                                                                         184      3    98%
