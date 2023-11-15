@@ -1,7 +1,7 @@
 {% for book in books %}
 <div class="col">
   <div class="card shadow-sm">
-    <img class="img-fluid" alt="{{book.title}}" src="{{book.getImage_url}}" />
+    <img class="img-fluid object-fit-scale d-block " style="height: 200px" alt="{{book.title}}" src="{{book.getImage_url}}" />
     <div class="card-body">
       <h5 class="text-center">
         <a class="text-dark text-decoration-none" href="{{book.getOneProduct_url}}">{{book.title}}</a>
@@ -16,7 +16,7 @@
             {{book.category}}
           </button>
         </div>
-        <small class="text-body-secondary">{{book.created_time}}</small>
+        <small class="text-body-secondary">{{book.auther}}</small>
       </div>
     </div>
   </div>

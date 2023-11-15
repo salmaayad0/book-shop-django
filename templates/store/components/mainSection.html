@@ -1,18 +1,31 @@
-
-<div class="row py-lg-5">
-  <div class="col-lg-6 col-md-8 mx-auto">
-    <h1 class="fw-light">Shop Now</h1>
-    <p class="lead text-body-secondary">
-      Nunc eget augue eu diam finibus dapibus quis sit amet leo. Ut gravida
-      facilisis velit mollis fringilla. Quisque efficitur elit nisi, quis cursus
-      justo tempor vitae. Quisque feugiat nulla eget leo vehicula, eget feugiat
-      justo viverra.
-    </p>
-    <p>
-      <a href="#" class="btn btn-primary my-2">Main call to action</a>
-      <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-    </p>
+{% load static %}
+<div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static "images/slide1.webp" %}" class="d-block w-100"
+      alt="online book store">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static "images/slide2.webp" %}" class="d-block w-100"
+      alt="online book store">
+    </div>
   </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleRide"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleRide"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
-
-
