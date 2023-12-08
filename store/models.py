@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.query import QuerySet
 from django.shortcuts import get_list_or_404
 from django.urls import reverse
 
@@ -23,6 +24,13 @@ class Category(models.Model):
 
 
 
+
+class ProductManger(models.Manager):
+    def get_queryset(self) -> QuerySet:
+        return super(ProductManger, self).get_queryset().filter(is_active=True)
+
+  
+
 class Product(models.Model):
     title = models.CharField(max_length=255)
     auther = models.CharField(max_length=255, default='admin')
@@ -37,6 +45,8 @@ class Product(models.Model):
     updated_time = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_by')
+    objects=models.Manager()
+    products=ProductManger()
     
     class Meta:
         ordering = ['-created_time']
@@ -44,13 +54,11 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+
+    def getAllProducts():
+        return Product.products.all()
     
-    # return list of all products if it exist
-    @classmethod
-    def getAllProducts(cls):
-        return get_list_or_404(cls)
-    
-    # return one product url by id
+    # return one product url by slug
     def getOneProduct_url(self):
         return reverse('store:getBook', args=[self.slug])
     
