@@ -45,7 +45,7 @@ class TestViewResponse(TestCase):
         
         # another way to test view
     def test_view_function(self):
-        request = self.factory.get('/book/booktest')
+        request = self.factory.get('/booktest')
         response = allBooks(request)
         htmlPage = response.content.decode('utf8')
         self.assertIn('<title> Book Shop </title>', htmlPage)

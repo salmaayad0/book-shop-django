@@ -11,6 +11,6 @@ app_name = 'store'
 
 urlpatterns = [
     path('', allBooks, name='allBooks'),
-    path('book/<slug:slug>', getBook, name='getBook'),
+    path('<slug:slug>', getBook, name='getBook'),
     path('search/<slug:slug_category>', listCategories, name='listCategories'),
 ]

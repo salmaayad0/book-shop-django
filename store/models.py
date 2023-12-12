@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.query import QuerySet
-from django.shortcuts import get_list_or_404
 from django.urls import reverse
 
 # Create your models here.
@@ -36,7 +35,7 @@ class Product(models.Model):
     auther = models.CharField(max_length=255, default='admin')
     description = models.TextField(blank=True, 
                                    default='Nunc eget augue eu diam finibus dapibus quis sit amet leo. Ut gravida facilisis velit mollis fringilla. Quisque efficitur elit')
-    image = models.ImageField(upload_to='images/store/')
+    image = models.ImageField(upload_to='images/store/', default='images/store/default.png')
     slug = models.SlugField(max_length=255)
     price = models.DecimalField(decimal_places=2, max_digits=4)
     in_stock = models.BooleanField(default=True)
