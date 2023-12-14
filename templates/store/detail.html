@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block title %} {{book.title}} {% endblock title %}
 {% block content %}
-<div class="container">
+{% csrf_token %}
+<div class="container-fluid">
   <main class="pt-5 mt-4">
     <div class="row g-3">
         {% comment %} right side {% endcomment %}
@@ -37,8 +38,12 @@
                 </select>
               </div>
               <div class="col-6 text-end">
-                <button type="button" class="btn btn-secondary btn-sm">
-                  Add to basket
+                <button type="button" 
+                  class="btn btn-secondary btn-sm"
+                  id="addCart"
+                  value="{{book.id}}"
+                >
+                  Add to cart
                 </button>
               </div>
             </div>
@@ -48,4 +53,23 @@
     </div>
   </main>
 </div>
+
+<script>
+  $(document).on('click', '#addCart', function(e){
+    e.preventDefault();
+
+     $.ajaxSetup({
+      type: 'POST',
+      url: '{% url "cart:order_submit" %}',
+      date: {
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        bookId: $('#addCart').val(),
+        action: 'post',
+      },
+      success: function(jsonData){},
+      error: function(){},
+    }) 
+  })
+</script>
+
 {% endblock content %}
