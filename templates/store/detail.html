@@ -29,12 +29,12 @@
           <div class="col">
             <div class="row p-3">
               <div class="col-6">
-                <label for="select">Qty</label>
-                <select id="select">
-                  <option value="">1</option>
-                  <option value="">2</option>
-                  <option value="">3</option>
-                  <option value="">4</option>
+                <label for="select">No.</label>
+                <select id="selectQty">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
                 </select>
               </div>
               <div class="col-6 text-end">
@@ -55,21 +55,27 @@
 </div>
 
 <script>
+$(document).ready(function() {
+
   $(document).on('click', '#addCart', function(e){
     e.preventDefault();
 
-     $.ajaxSetup({
+    $.ajax({
       type: 'POST',
       url: '{% url "cart:order_submit" %}',
-      date: {
+      data: {
+        action: 'post',
         csrfmiddlewaretoken: '{{ csrf_token }}',
         bookId: $('#addCart').val(),
-        action: 'post',
+        bookQty: $('#selectQty option:selected').text(),
       },
-      success: function(jsonData){},
-      error: function(){},
-    }) 
+      success: function(jsonData) {
+        document.getElementById('cartQty').innerHTML = jsonData.qty
+      },
+      error: function(xhr, errmsg, err) {},
+    });
   })
+})
 </script>
 
 {% endblock content %}

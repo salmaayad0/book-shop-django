@@ -11,10 +11,13 @@ def order_items(request):
 
 def order_submit(request):
     cart = Cart(request)
+    
     if request.POST.get('action') == 'post':
         book_id = int(request.POST.get('bookId'))
+        book_qty = int(request.POST.get('bookQty'))
         book = get_object_or_404(Product, id=book_id)
-        cart.add_to_cart(book)
+        cart.add_to_cart(product=book, qty=book_qty)
+        total_qty = cart.__len__()
         
-        return JsonResponse({'test': 'data'})
+        return JsonResponse({'qty': total_qty})
 
