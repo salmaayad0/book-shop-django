@@ -1,15 +1,14 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse
-from .models import *
+from django.shortcuts import render, get_object_or_404
+from .models import Product, Category
 
-# Create your views here.
+
 # categories functions
     
 def listCategories(request, slug_category):
     category = get_object_or_404(Category, slug=slug_category)
-    booksByCategory = Product.objects.filter(category=category)
+    booksByCategory = Product.products.filter(category=category)
     return render(request, 'store/search.html',{'books': booksByCategory,
                                                 'category': category })
-
 
 
 # Products function

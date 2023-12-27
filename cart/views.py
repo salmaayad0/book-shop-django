@@ -1,12 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from django.contrib.sessions.models import Session
 from .cart import Cart
 from store.models import Product
 
 # Create your views here.
 def order_items(request):
-    return render(request, 'cart/items.html')
+    cart=Cart(request)
+    return render(request, 'cart/items.html', {'cart': cart})
 
 
 def order_submit(request):

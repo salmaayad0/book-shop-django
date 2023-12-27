@@ -44,7 +44,6 @@ class Product(models.Model):
     updated_time = models.DateTimeField(auto_now=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='product')
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_by')
-    objects=models.Manager()
     products=ProductManger()
     
     class Meta:
