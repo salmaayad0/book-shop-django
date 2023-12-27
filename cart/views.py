@@ -20,4 +20,19 @@ def order_submit(request):
         total_qty = cart.__len__()
         
         return JsonResponse({'qty': total_qty})
+    
+        
+def order_delete(request):
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        book_id = int(request.POST.get('bookId'))
+        print(book_id)
+        cart.delete_from_cart(product_id=book_id)
+        qty = cart.__len__()
+        total_price = cart.get_total_price()
+        
+        return JsonResponse({'qty': qty, 'total_price': total_price})
+    
+        
 

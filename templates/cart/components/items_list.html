@@ -3,7 +3,7 @@
     <img
       class="img-fluid mx-auto d-block"
       width="120px"
-      alt="Responsive image"
+      alt="{{ product.title }}"
       src="{{ product.image.url }}"
     />
   </div>
@@ -11,8 +11,7 @@
     <a
       href="{{ product.getOneProduct_url }}"
       class="text-decoration-none text-reset"
-    >
-      <h1 class="h5 pt-2">{{ product.title }}</h1>
+    ><h1 class="h5 pt-2">{{ product.title }}</h1>
     </a>
     <div class="border">
       <div class="col border-bottom">
@@ -26,20 +25,21 @@
       <div class="col border-bottom">
         <div class="row p-3">
           <div class="col-12">
-            <label for="select">Qty</label>
+            <label for="select">Qty {{product.id}}</label>
             <select id="select{{product.id}}">
               <option selected>{{item.qty}}</option>
               {% comment %}
-              <option value="">1</option>
-              <option value="">2</option>
-              <option value="">3</option>
-              <option value="">4</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
               {% endcomment %}
             </select>
             <button
               type="button"
               id="update-button"
               data-index="{{product.id}}"
+              value="{{product.id}}"
               class="btn btn-outline-success btn-sm update-button my-1"
             >
               <svg
@@ -59,10 +59,12 @@
                 />
               </svg>
             </button>
+
             <button
               type="button"
               id="delete-button"
               data-index="{{product.id}}"
+              value="{{product.id}}"
               class="btn btn-outline-danger btn-sm delete-button my-1"
             >
               <svg
@@ -84,6 +86,7 @@
           </div>
         </div>
       </div>
+
       {% if item.qty > 1 %}
       <div class="col">
         <div class="row p-3">
@@ -94,6 +97,35 @@
         </div>
       </div>
       {% endif %}
+
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() {
+  $(document).on('click', '#delete-button', function(e){
+    e.preventDefault();
+    console.log($('#delete-button').val())
+    //console.log($('#delete-button').data('index'))
+    let deleted_index = $('#delete-button').val()
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart:order_delete" %}',
+      data: {
+        action: 'post',
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        bookId: $('#delete-button').val()
+      },
+      success: function(jsonData) {
+        console.log(deleted_index)
+        $('.product-item[data-index="' + deleted_index + '"]').remove();
+        document.getElementById("subTotal").innerHTML = jsonData.total_price;
+        document.getElementById("cartQty").innerHTML = jsonData.qty
+      },
+      error: function(xhr, errmsg, err) {},
+    });
+  })
+})
+</script>
