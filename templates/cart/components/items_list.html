@@ -28,12 +28,10 @@
             <label for="select">Qty {{product.id}}</label>
             <select id="select{{product.id}}">
               <option selected>{{item.qty}}</option>
-              {% comment %}
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
-              {% endcomment %}
             </select>
             <button
               type="button"
@@ -119,8 +117,31 @@ $(document).ready(function() {
         bookId: $('#delete-button').val()
       },
       success: function(jsonData) {
-        console.log(deleted_index)
         $('.product-item[data-index="' + deleted_index + '"]').remove();
+        document.getElementById("subTotal").innerHTML = jsonData.total_price;
+        document.getElementById("cartQty").innerHTML = jsonData.qty
+      },
+      error: function(xhr, errmsg, err) {},
+    });
+  })
+})
+
+$(document).ready(function() {
+  $(document).on('click', '#update-button', function(e){
+    e.preventDefault();
+    console.log($('#update-button').val())
+    let updated_index = $('#update-button').val()
+
+    $.ajax({
+      type: 'POST',
+      url: '{% url "cart:order_update" %}',
+      data: {
+        action: 'post',
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        bookId: $('#update-button').val(),
+        bookQty: $('#select' + updated_index + ' option:selected').text()
+      },
+      success: function(jsonData) {
         document.getElementById("subTotal").innerHTML = jsonData.total_price;
         document.getElementById("cartQty").innerHTML = jsonData.qty
       },

@@ -13,26 +13,7 @@ class Cart():
             cart = self.session['skey'] = {}
             
         self.cart = cart
-        
-        
-    def add_to_cart(self, product, qty):
-        product_id = str(product.id)
-
-        if product_id not in self.cart:
-            self.cart[product_id] = {}
-             
-        self.cart[product_id] = {'price': str(product.price), 'qty': int(qty)}
-
-        self.session.modified = True
-        
     
-    def delete_from_cart(self, product_id):
-        if str(product_id) in self.cart:
-            print(self.cart[str(product_id)])
-            del self.cart[str(product_id)]
-            self.session.modified = True
-          
-        
     
     def __len__(self):
         return sum(product['qty'] for product in self.cart.values())
@@ -51,6 +32,40 @@ class Cart():
             item['total_price'] = item['price'] * item['qty']
             yield item
         
+        
+        
+    def save(self):
+        self.session.modified = True
+        
+        
+        
+    def add_to_cart(self, product, qty):
+        product_id = str(product.id)
+
+        if product_id not in self.cart:
+            self.cart[product_id] = {}
+             
+        self.cart[product_id] = {'price': str(product.price), 'qty': int(qty)}
+        
+        self.save()
+        
+    
+    
+    def delete_from_cart(self, product_id):
+        if str(product_id) in self.cart:
+            print(self.cart[str(product_id)])
+            del self.cart[str(product_id)]
+            
+            self.save()
+    
+    
+    
+    def update_cart(self, product_id, qty):
+        if str(product_id) in self.cart:
+            self.cart[str(product_id)]['qty'] = qty
+            
+            self.save()
+    
     
     def get_total_price(self):
         return sum(Decimal(product['price']) * product['qty'] for product in self.cart.values())
