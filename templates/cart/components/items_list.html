@@ -35,7 +35,7 @@
             </select>
             <button
               type="button"
-              id="update-button"
+              {% comment %} id="update-button" {% endcomment %}
               data-index="{{product.id}}"
               value="{{product.id}}"
               class="btn btn-outline-success btn-sm update-button my-1"
@@ -60,7 +60,7 @@
 
             <button
               type="button"
-              id="delete-button"
+              id="delete-button-{{product.id}}"
               data-index="{{product.id}}"
               value="{{product.id}}"
               class="btn btn-outline-danger btn-sm delete-button my-1"
@@ -102,11 +102,10 @@
 
 <script>
 $(document).ready(function() {
-  $(document).on('click', '#delete-button', function(e){
+  $(document).on('click', '.delete-button', function(e){
     e.preventDefault();
-    console.log($('#delete-button').val())
-    //console.log($('#delete-button').data('index'))
-    let deleted_index = $('#delete-button').val()
+    console.log($('.delete-button').val())
+    let deleted_index = $('.delete-button').data('index')
 
     $.ajax({
       type: 'POST',
@@ -114,7 +113,7 @@ $(document).ready(function() {
       data: {
         action: 'post',
         csrfmiddlewaretoken: '{{ csrf_token }}',
-        bookId: $('#delete-button').val()
+        bookId: $('.delete-button').val()
       },
       success: function(jsonData) {
         $('.product-item[data-index="' + deleted_index + '"]').remove();
@@ -127,10 +126,10 @@ $(document).ready(function() {
 })
 
 $(document).ready(function() {
-  $(document).on('click', '#update-button', function(e){
+  $(document).on('click', '.update-button', function(e){
     e.preventDefault();
-    console.log($('#update-button').val())
-    let updated_index = $('#update-button').val()
+    console.log($('.update-button').val())
+    let updated_index = $('.update-button').val()
 
     $.ajax({
       type: 'POST',
@@ -138,7 +137,7 @@ $(document).ready(function() {
       data: {
         action: 'post',
         csrfmiddlewaretoken: '{{ csrf_token }}',
-        bookId: $('#update-button').val(),
+        bookId: $('.update-button').val(),
         bookQty: $('#select' + updated_index + ' option:selected').text()
       },
       success: function(jsonData) {

@@ -19,7 +19,7 @@ class ProductTest(TestCase):
     def setUp(self) -> None:
         category = Category.objects.create(name='fun', slug='fun')
         user = User.objects.create(username='admin')
-        self.data = Product.objects.create(title='booktest',slug='fun',
+        self.data = Product.products.create(title='booktest',slug='fun',
                                            category=category,created_by=user, 
                                            image='test.png',price='50.01')   
         

@@ -1,6 +1,8 @@
 shop/__pycache__
 store/__pycache__
+store/tests/__pycache__
 cart/__pycache__
+cart/tests/__pycache__
 /.coverage
 /htmlcov
 

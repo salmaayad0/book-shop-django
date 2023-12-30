@@ -5,7 +5,7 @@ class Cart():
     """
     cart class to provid defult behavior to cart sessions
     """
-    def __init__(self, request) -> None:
+    def __init__(self, request):
         self.session = request.session
         cart = self.session.get('skey')
         

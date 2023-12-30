@@ -1,6 +1,8 @@
+from importlib import import_module
 from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
 from django.http import HttpRequest
+from django.conf import settings
 from django.contrib.auth.models import User
 from store.models import *
 from store.views import allBooks
@@ -14,7 +16,7 @@ class TestViewResponse(TestCase):
         # as if these data created in database 'simulation'
         category = Category.objects.create(name='test', slug='test')
         user = User.objects.create(username='admin')
-        product = Product.objects.create(title='booktest',slug='booktest',
+        product = Product.products.create(title='booktest',slug='booktest',
                                          category=category,created_by=user, 
                                            image='test.png',price='50.01') 
     
@@ -35,17 +37,11 @@ class TestViewResponse(TestCase):
         self.assertEqual(response.status_code, 200)
         
         
-    # test pages contains
-    def test_index_html(self):
-        request = HttpRequest()
-        response = allBooks(request)
-        htmlPage = response.content.decode('utf8')
-        self.assertIn('<title> Book Shop </title>', htmlPage)
-        self.assertEqual(response.status_code, 200)
-        
-        # another way to test view
+ 
     def test_view_function(self):
         request = self.factory.get('/booktest')
+        engine = import_module(settings.SESSION_ENGINE)
+        request.session = engine.SessionStore()
         response = allBooks(request)
         htmlPage = response.content.decode('utf8')
         self.assertIn('<title> Book Shop </title>', htmlPage)
